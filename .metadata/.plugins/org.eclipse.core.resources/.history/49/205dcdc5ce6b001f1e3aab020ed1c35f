@@ -1,0 +1,16 @@
+package br.com.criandoapi.projeto.service;
+
+import org.springframework.stereotype.Service;
+
+import br.com.criandoapi.projeto.repository.IUsuario;
+
+@Service
+public class UsuarioService {
+	
+	private IUsuario repository;
+	
+	public UsuarioService(IUsuario repository) {
+		this.repository = repository;
+		
+	}
+}

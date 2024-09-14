@@ -1,0 +1,32 @@
+package br.com.criandoapi.projeto.security;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+@Configuration
+@EnableWebSecurity
+public class SecurityConfig {
+
+	@Bean
+	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+		// Desativa CSRF e habilita CORS
+		http.csrf(csrf -> csrf.disable())
+				.authorizeHttpRequests(auth -> auth.requestMatchers(HttpMethod.GET, "/usuarios").permitAll() // Libera
+																												// requisições
+																												// GET
+																												// para
+																												// /usuarios
+						.anyRequest().authenticated() // Exige autenticação para qualquer outra requisição
+				);
+
+		// Adiciona o filtro personalizado antes do filtro padrão de autenticação
+		http.addFilterBefore(new SecurityFilter(), UsernamePasswordAuthenticationFilter.class);
+
+		return http.build();
+	}
+}

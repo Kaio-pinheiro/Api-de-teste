@@ -1,0 +1,13 @@
+package br.com.criandoapi.projeto.security;
+
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+@Enable
+public class SecurityConfig extends WebSecurityConfigurerAdapter{
+	
+	public void configure(HttpSecurity httpSec) throws Exception{
+		
+	}
+
+}
